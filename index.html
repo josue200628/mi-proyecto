@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Mi Nota Personal</title>
+
+<style>
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #2e003e, #5a189a, #7b2cbf);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+    padding: 20px;
+}
+
+/* TARJETA */
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 0 40px rgba(123, 44, 191, 0.6);
+    animation: fadeIn 1s ease-in-out;
+}
+
+h1 {
+    font-size: clamp(20px, 4vw, 26px);
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: clamp(13px, 3vw, 15px);
+    opacity: 0.85;
+    margin-bottom: 20px;
+}
+
+/* INPUT + OJO */
+.password-box {
+    position: relative;
+    width: 100%;
+}
+
+.password-box input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 45px;
+    border-radius: 12px;
+    border: none;
+    margin-bottom: 15px;
+    outline: none;
+    font-size: 16px;
+}
+
+.eye {
+    position: absolute;
+    right: 12px;
+    top: 11px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: #c77dff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+button:hover {
+    background: #9d4edd;
+}
+
+#error {
+    color: #ff4d6d;
+    display: none;
+    margin-top: 10px;
+}
+
+/* MENSAJE BIENVENIDA */
+#welcome {
+    position: fixed;
+    text-align: center;
+    font-size: clamp(28px, 7vw, 48px);
+    font-weight: bold;
+    padding: 20px;
+    display: none;
+    animation: zoomFade 3s ease forwards;
+}
+
+/* VIDEO */
+.video-container {
+    display: none;
+    width: 100%;
+    max-width: 900px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+video {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 40px rgba(199, 125, 255, 0.7);
+}
+
+/* ANIMACIONES */
+@keyframes zoomFade {
+    0% { opacity: 0; transform: scale(0.6); }
+    20% { opacity: 1; transform: scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1.2); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* MODO HORIZONTAL */
+@media (orientation: landscape) {
+    body {
+        padding: 10px;
+    }
+
+    .card {
+        max-width: 450px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="loginBox">
+    <h1>📓 Mi Blog Personal</h1>
+    <p>Este espacio guarda algo especial... 💜</p>
+
+    <div class="password-box">
+        <input type="password" id="password" placeholder="Escribe la clave">
+        <span class="eye" onclick="togglePassword()">👁️</span>
+    </div>
+
+    <button onclick="verificar()">Entrar</button>
+    <div id="error">Clave incorrecta</div>
+</div>
+
+<div id="welcome">Bienvenido, mi amor 💜</div>
+
+<div class="video-container" id="videoBox">
+    <video controls playsinline>
+        <source src="video.mp4" type="video/mp4">
+        Tu navegador no soporta video.
+    </video>
+</div>
+
+<script>
+function verificar() {
+    const pass = document.getElementById("password").value;
+
+    if(pass === "marzo") {
+        document.getElementById("loginBox").style.display = "none";
+        
+        const welcome = document.getElementById("welcome");
+        welcome.style.display = "block";
+
+        setTimeout(() => {
+            welcome.style.display = "none";
+            document.getElementById("videoBox").style.display = "block";
+        }, 3000);
+
+    } else {
+        document.getElementById("error").style.display = "block";
+    }
+}
+
+function togglePassword() {
+    const input = document.getElementById("password");
+    input.type = input.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>
